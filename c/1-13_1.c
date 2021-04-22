@@ -35,24 +35,31 @@ int main() {
 			}
 			state = OUT;
 		}
-		else if (state == OUT)
+		else
 			state = IN;
 
 		if (state == IN)
 			++wordLen;
 	}
 
+	// handle input without any tabs, spaces or newlines
+	if (wordLen > 0)
+		++lenArr[wordLen];
+
 	// print histogram
 	printHist(lenArr);
 
-	// print overflowed words number
-	printf("\nInput contains %d word(s) whose length is greater than %d\n", wordsOverflown, MAX_WORDLEN);
+	// print words overflown
+	printf("WO\t:: %d\n\n", wordsOverflown);
 
 	return 0;
 }
 
 void printHist(int *arr) {
 	int i, j;
+
+	putchar('\n');
+
 	for (i = 1; i < MAX_WORDLEN; ++i) {
 		printf("%d\t:: ", i);
 		for (j = 0; j < arr[i]; ++j)
