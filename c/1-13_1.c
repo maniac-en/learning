@@ -47,10 +47,14 @@ int main() {
 		++lenArr[wordLen];
 
 	// print histogram
+	putchar('\n');
 	printHist(lenArr);
 
 	// print words overflown
-	printf("WO\t:: %d\n\n", wordsOverflown);
+	printf("10+\t:: ");
+	for (i = 0; i < wordsOverflown; ++i)
+		putchar('=');
+	putchar('\n');
 
 	return 0;
 }
@@ -58,12 +62,10 @@ int main() {
 void printHist(int *arr) {
 	int i, j;
 
-	putchar('\n');
-
 	for (i = 1; i < MAX_WORDLEN; ++i) {
 		printf("%d\t:: ", i);
 		for (j = 0; j < arr[i]; ++j)
-			printf("=");
+			putchar("=");
 		putchar('\n');
 	}
 }
