@@ -11,30 +11,67 @@
 
 #include <stdio.h>
 
+void parse_single_quotes();
+void parse_double_quotes();
+void parse_comments();
+
 int main() {
-	int currentChar, nextChar, tempChar1, tempChar2, skipChar;
-
+	int currentChar;
+	const char *check = "\" /* not a comment */\"";
 	while ((currentChar = getchar()) != EOF) {
-		if (currentChar == '/') {
-			nextChar = getchar();
+		if (currentChar == '\'') {
+			parse_single_quotes();
 
-			if (nextChar == '*') {
-				tempChar1 = getchar();
-				tempChar2 = getchar();
-				while (tempChar1 != '*' || tempChar2 != '/') {
-					tempChar1 = tempChar2;
-					tempChar2 = getchar();
-				}
-			} else if (nextChar == '/') {
-				// skip till newline
-				while ((skipChar = getchar()) != '\n')
-					;
-				putchar('\n');	// newline replacing single line comment
+		} else if (currentChar == '"') {
+			parse_double_quotes();
 
-			} else
-				putchar(currentChar);
+		} else if (currentChar == '/') {
+			parse_comments();
+
 		} else
 			putchar(currentChar);
 	}
 	return 0;
+}
+
+void parse_single_quotes() {
+	int currentChar;
+	putchar('\'');
+	while ((currentChar = getchar()) != '\n')
+		putchar(currentChar);
+	putchar('\n');
+}
+
+void parse_double_quotes() {
+	int prevChar, currentChar;
+	prevChar = '"';
+	currentChar = getchar();
+	while (currentChar != '"' || prevChar == '\\') {
+		putchar(prevChar);
+		prevChar = currentChar;
+		currentChar = getchar();
+	}
+	putchar(prevChar);
+	putchar(currentChar);
+}
+
+void parse_comments() {
+	int nextChar, tempChar1, tempChar2, skipChar;
+	nextChar = getchar();
+
+	if (nextChar == '*') {
+		tempChar1 = getchar();
+		tempChar2 = getchar();
+		while (tempChar1 != '*' || tempChar2 != '/') {
+			tempChar1 = tempChar2;
+			tempChar2 = getchar();
+		}
+	} else if (nextChar == '/') {
+		// skip till newline
+		while ((skipChar = getchar()) != '\n')
+			;
+		putchar('\n');	// newline replacing single line comment
+
+	} else
+		putchar('/');
 }
