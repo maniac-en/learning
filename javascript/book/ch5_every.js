@@ -8,6 +8,9 @@ const every = (array, test) => {
     return true;
 }
 
+// tests for all some iterations should be false
+// that'll make array.some return false
+// hence every2 returns true
 const every2 = (array, test) => !array.some(element => !test(element));
 
 // test
