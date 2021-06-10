@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 const every = (array, test) => {
-    let res = true;
-    for (let element of array) {
-        if (!test(element)) return false;
-    }
-    return true;
+  let res = true;
+  for (let element of array) {
+    if (!test(element)) return false;
+  }
+  return true;
 }
 
 // tests for all some iterations should be false

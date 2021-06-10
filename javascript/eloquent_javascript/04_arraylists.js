@@ -1,35 +1,35 @@
 #!/usr/bin/env node
 
 const arrayToList = inputArr => {
-    let list = {
-        value : inputArr[0],
-        rest : inputArr.length == 1 ? null : arrayToList(inputArr.slice(1))
-    }
-    return list;
+  let list = {
+    value : inputArr[0],
+    rest : inputArr.length == 1 ? null : arrayToList(inputArr.slice(1))
+  }
+  return list;
 }
 
 const listToArray = inputList => {
-    let arr = []
-    for (let rest = inputList; rest; rest = rest.rest) {
-        arr.push(rest.value);
-    }
-    return arr;
+  let arr = []
+  for (let rest = inputList; rest; rest = rest.rest) {
+    arr.push(rest.value);
+  }
+  return arr;
 }
 
 const prepend = (inputValue, inputList) => {
-    let list = {
-        value : inputValue,
-        rest : inputList
-    }
-    return list;
+  let list = {
+    value : inputValue,
+    rest : inputList
+  }
+  return list;
 }
 
 const nth = (inputList, index) => {
-    let count = 0;
-    for (let rest = inputList; rest; rest = rest.rest) {
-        if (count == index) return rest.value;
-        else count++;
-    }
+  let count = 0;
+  for (let rest = inputList; rest; rest = rest.rest) {
+    if (count == index) return rest.value;
+    else count++;
+  }
 }
 
 // test

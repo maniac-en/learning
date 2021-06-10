@@ -33,14 +33,14 @@ const arr3 = [
 // ]
 
 function genObjects(arr) {
-    const [headings, ...data] = arr;
-    return data.reduce((acc, cur) => {
-        const person = {};
-        for (const headingIndex in headings) {
-            person[headings[headingIndex]] = cur[headingIndex];
-        }
-        return acc.concat(person);
-    }, []);
+  const [headings, ...data] = arr;
+  return data.reduce((acc, cur) => {
+    const person = {};
+    for (const headingIndex in headings) {
+      person[headings[headingIndex]] = cur[headingIndex];
+    }
+    return acc.concat(person);
+  }, []);
 }
 
 const completeData = [ ...genObjects(arr1), ...genObjects(arr2), ...genObjects(arr3) ];
@@ -62,21 +62,21 @@ let output = [[]];
 
 // generate all labels
 mergedObj.forEach(function(deets) {
-    Object.getOwnPropertyNames(deets).forEach(function (label) {
-        if (!output[0].includes(label)) {
-            output[0].push(label);
-        }
-    })
+  Object.getOwnPropertyNames(deets).forEach(function (label) {
+    if (!output[0].includes(label)) {
+      output[0].push(label);
+    }
+  })
 });
 
 // populate data based on labels and mergedObj
 mergedObj.forEach(function(deets) {
-    let deetsArray = [];
-    for (let label of output[0]) {
-        if (label in deets) deetsArray.push(deets[label]);
-        else deetsArray.push("");
-    }
-    output.push(deetsArray);
+  let deetsArray = [];
+  for (let label of output[0]) {
+    if (label in deets) deetsArray.push(deets[label]);
+    else deetsArray.push("");
+  }
+  output.push(deetsArray);
 });
 
 log(output);

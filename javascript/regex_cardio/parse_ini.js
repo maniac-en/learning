@@ -19,27 +19,27 @@ outputdir=/home/marijn/enemies/davaeorn`;
 const escaped_str = str.replace(/[\\\[\]\.\+\*\?\(\)\{\|\^\$]/mg, '\\$&');
 
 const parsed_obj = input => {
-    let obj = {};
-    let section = obj;
-    let match;
-    input.split(/\r?\n/).forEach( line => {
-        if (match = line.match(/^(\w+)=(.*)$/)) {
-            section[match[1]] = match[2];
-        } else if (match = line.match(/^\\\[(.*)\\\]$/)) {
-            section = obj[match[1]] = {};
-        } else if (!/^\s*(;.*)?$/.test(line)) {
-            // do nothing for ignored/commented lines
-            // handle invalid lines
-            throw new Error("Line '" + line + "' is not valid.");
-        }
-    });
-    return obj;
+  let obj = {};
+  let section = obj;
+  let match;
+  input.split(/\r?\n/).forEach( line => {
+    if (match = line.match(/^(\w+)=(.*)$/)) {
+      section[match[1]] = match[2];
+    } else if (match = line.match(/^\\\[(.*)\\\]$/)) {
+      section = obj[match[1]] = {};
+    } else if (!/^\s*(;.*)?$/.test(line)) {
+      // do nothing for ignored/commented lines
+      // handle invalid lines
+      throw new Error("Line '" + line + "' is not valid.");
+    }
+  });
+  return obj;
 };
 
 // test, and print unescaped, pretty output
 try {
-    const unescaped_obj = JSON.parse(JSON.stringify(parsed_obj(escaped_str)).replace(/\\/mg, ''));
-    console.log(unescaped_obj);
+  const unescaped_obj = JSON.parse(JSON.stringify(parsed_obj(escaped_str)).replace(/\\/mg, ''));
+  console.log(unescaped_obj);
 } catch (e) {
-    console.log(e);
+  console.log(e);
 }
