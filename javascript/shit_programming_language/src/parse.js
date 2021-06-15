@@ -14,7 +14,7 @@ function parse(program) {
   } else if (match = /^[^\s(),#"]+/.exec(program)) {
     expr = {type: "word", name: match[0]};
   } else {
-    throw new SyntaxError("Unexpected syntax: " + program);
+    throw new SyntaxError("Unexpected shit💩: " + program);
   }
 
   return parseApplications(expr, program.slice(match[0].length));
@@ -35,7 +35,7 @@ function parseApplications(expr, program) {
     if (program[0] == ",") {
       program = removeSpaces(program.slice(1));
     } else if (program[0] != ")") {
-      throw new SyntaxError("Expected ',' or ')'");
+      throw new SyntaxError("Expected shit💩 : ',' or ')' ");
     }
   }
   return parseApplications(expr, program.slice(1));

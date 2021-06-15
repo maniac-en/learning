@@ -3,7 +3,7 @@ const words = Object.create(null);
 // =======================
 words.if = (args, scope) => {
   if (args.length != 3) {
-    throw new SyntaxError("Incorrect number of arguments for if");
+    throw new SyntaxError("Shit💩 number of arguments for \"if\"");
   } else if (evalTree(args[0], scope) !== false) {
     return evalTree(args[1], scope);
   } else {
@@ -13,16 +13,17 @@ words.if = (args, scope) => {
 // =======================
 words.while = (args, scope) => {
   if (args.length != 2) {
-    throw new SyntaxError("Incorrect number of arguments for while");
+    throw new SyntaxError("Shit💩 number of arguments for \"while\"");
   }
   while (evalTree(args[0], scope) !== false) {
     evalTree(args[1], scope);
   }
-  return false; // return false in undefined
+  return false; // return false if undefined
 };
 // =======================
 words.do = (args, scope) => {
   let value = false;
+  // keep doing shit
   for (let arg of args) {
     value = evalTree(arg, scope);
   }
@@ -31,7 +32,7 @@ words.do = (args, scope) => {
 // =======================
 words.define = (args, scope) => {
   if (args.length != 2 || args[0].type != "word") {
-    throw new SyntaxError("Incorrect use of define");
+    throw new SyntaxError("\"define\" used in a shitty💩 way!");
   }
   let value = evalTree(args[1], scope);
   scope[args[0].name] = value;
@@ -40,19 +41,19 @@ words.define = (args, scope) => {
 // =======================
 words.func = (args, scope) => {
   if (!args.length) {
-    throw new SyntaxError("Function needs a body");
+    throw new SyntaxError("\"func\" body is shit💩");
   }
   let body = args[args.length - 1];
   let params = args.slice(0, args.length - 1).map(expr => {
     if (expr.type != "word") {
-      throw new SyntaxError("Function parameters must be of type: \"word\"");
+      throw new SyntaxError("\"func\" parameters are shit💩");
     }
     return expr.name;
   });
 
   return function() {
     if (arguments.length != params.length) {
-      throw new SyntaxError("Incorrect number of arguments for function");
+      throw new SyntaxError("Shit💩 number of arguments for \"func\"");
     }
     let localScope = Object.create(scope);
     for (let i = 0; i < arguments.length; i++) {
@@ -70,8 +71,7 @@ function evalTree(expr, scope) {
     if (expr.name in scope) {
       return scope[expr.name];
     } else {
-      throw new ReferenceError(
-        `Undefined binding: ${expr.name}`);
+      throw new ReferenceError( `Shit💩 is undefined: ${expr.name}`);
     }
   } else if (expr.type == "apply") {
     let {operator, args} = expr;
@@ -83,7 +83,7 @@ function evalTree(expr, scope) {
       if (typeof op == "function") {
         return op(...args.map(arg => evalTree(arg, scope)));
       } else {
-        throw new TypeError("Applying a non-function.");
+        throw new TypeError(`${op} is a shitty💩 non-func`);
       }
     }
   }

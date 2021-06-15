@@ -20,13 +20,13 @@ globalScope.array = (...values) => values;
 // get array length
 globalScope.length = array => {
   if (Array.isArray(array)) return array.length;
-  else throw new TypeError("Expected \"Array\" type \"word\"");
+  else throw new TypeError("Expected \"Array\" type shit💩");
 }
 
 // get array element
 globalScope.element = (array, i) => {
-  if (!Array.isArray(array)) throw new TypeError("Expected \"Array\" type \"word\"");
-  else if ((i).isNan) throw new TypeError("Expected \"Number\" type \"word\"");
+  if (!Array.isArray(array)) throw new TypeError("Expected \"Array\" type shit💩");
+  else if ((i).isNan) throw new TypeError("Expected \"Number\" type shit💩");
   else return array[i];
 };
 
