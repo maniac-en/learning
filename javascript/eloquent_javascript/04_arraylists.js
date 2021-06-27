@@ -25,15 +25,13 @@ const prepend = (inputValue, inputList) => {
 }
 
 const nth = (inputList, index) => {
-  let count = 0;
-  for (let rest = inputList; rest; rest = rest.rest) {
-    if (count == index) return rest.value;
-    else count++;
-  }
+  if (!inputList) return undefined;
+  if (index == 0) return inputList.value;
+  else return nth(inputList.rest, --index);
 }
 
 // test
 console.log(arrayToList([10, 20, 30]));
 console.log(listToArray(arrayToList([10, 20, 30])));
 console.log(prepend(10, prepend(20, null)));
-console.log(nth(arrayToList([10, 20, 30]), 1));
+console.log(nth(arrayToList([10, 20, 30]), 3));

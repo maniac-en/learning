@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
-require('./scripts.js')
+const SCRIPTS = require('./scripts.js')
 
-function countBy(items, groupName) {
+function countBy(items, getKeyName) {
   let counts = [];
   for (let item of items) {
-    let name = groupName(item);
-    let known = counts.findIndex(c => c.name == name);
-    if (known == -1) {
-      counts.push({name, count: 1});
+    let current_key_name = getKeyName(item);
+    let current_key_index = counts.findIndex(keys => keys.name == current_key_name);
+    if (current_key_index == -1) { // -1 denotes that current_key_name is not present
+      counts.push({name: current_key_name, count: 1});
     } else {
-      counts[known].count++;
+      counts[current_key_index].count++;
     }
   }
   return counts;
@@ -34,10 +34,10 @@ function characterScript(code) {
 function textScripts(text) {
   let scripts = countBy(text, char => {
     let script = characterScript(char.codePointAt(0));
+    // none if current char is not present in any of the scripts range
     return script ? script.name : "none";
   }).filter(({name}) => name != "none");
 
-  console.log(scripts);
   let total = scripts.reduce((a, b) => a += b.count, 0);
   if (total == 0) return "No scripts found";
 

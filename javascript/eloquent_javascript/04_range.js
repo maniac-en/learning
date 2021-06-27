@@ -9,13 +9,7 @@ const range = (start, end, step = start < end ? 1 : -1) => {
   return numArr;
 }
 
-const sum = sumArr => {
-  let result = 0;
-  for (let num of sumArr) {
-    result += num;
-  }
-  return result;
-}
+const sum = arr => arr.reduce((a, b) => a += b)
 
 // test
 console.log(range(1, 10));

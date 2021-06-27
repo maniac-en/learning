@@ -6,7 +6,7 @@ function primitiveMultiply(a, b) {
   if (Math.random() < 0.2) {
     return a * b;
   } else {
-    throw new MultiplicatorUnitFailure("Klunk");
+    throw new MultiplicatorUnitFailure("Retrying...");
   }
 }
 
@@ -14,9 +14,10 @@ function reliableMultiply(a, b) {
   for (;;) {
     try {
       return primitiveMultiply(a, b);
-    } catch (e) {
-      if (!(e instanceof MultiplicatorUnitFailure))
-        throw e;
+    } catch (err) {
+      if (err instanceof MultiplicatorUnitFailure) {
+        console.warn(err.message);
+      } else return err;
     }
   }
 }
