@@ -1,7 +1,7 @@
 function removeSpaces(string) {
-  let first = string.search(/\S/);
-  if (first == -1) return "";
-  return string.slice(first);
+  // skip empty spaces and hashes (comments)
+  let skippable = string.match(/^(\s|#.*)*/);
+  return string.slice(skippable[0].length);
 }
 
 function parse(program) {

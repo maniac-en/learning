@@ -63,6 +63,21 @@ words.func = (args, scope) => {
   };
 };
 // =======================
+words.set = (args, scope) => {
+  if (args.length != 2 || args[0].type != "word") {
+    throw new SyntaxError("\"set\" used in a shitty💩 way!");
+  }
+  let varName = args[0].name;
+  let value = evalTree(args[1], scope);
+
+  for (let env = scope; env; env = Object.getPrototypeOf(env)) {
+    if (Object.prototype.hasOwnProperty.call(env, varName)) {
+      env[varName] = value;
+      return value;
+    }
+  }
+  throw new ReferenceError( `Shit💩 is undefined: ${varName}`);
+};
 
 function evalTree(expr, scope) {
   if (expr.type == "value") {
