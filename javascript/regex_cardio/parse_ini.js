@@ -16,7 +16,7 @@ fullname=Davaeorn
 type=evil wizard
 outputdir=/home/marijn/enemies/davaeorn`;
 
-const escaped_str = str.replace(/[\\\[\]\.\+\*\?\(\)\{\|\^\$]/mg, '\\$&');
+const escaped_str = str.replace(/[\\\[\]\.\+\*\?\(\)\{\}\|\^\$]/mg, '\\$&');
 
 const parsed_obj = input => {
   let obj = {};

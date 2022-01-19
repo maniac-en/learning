@@ -2,10 +2,14 @@
 
 // function similar to Math.min
 
-const min = (num1, num2) => {
-  if (num1 <= num2) return num1;
-  else return num2;
-}
+// normie version
+// const min = (num1, num2) => {
+//   if (num1 <= num2) return num1;
+//   else return num2;
+// }
+
+// shorter version
+const min = (a, b) => (a < b) ? a : b
 
 // test
 console.log(min(0, 10));

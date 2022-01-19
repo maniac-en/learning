@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="UTF-8" />
+<p id='balloon' style='text-align:center'>🎈</p>
+<script>
+  balloon = document.getElementById('balloon');
+  balloon_size = '100';
+  balloon.style.fontSize = balloon_size + 'px';
+
+  function inflate_deflate(event) {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      balloon_size = Math.round(11 * balloon_size / 10);
+      balloon.style.fontSize = balloon_size + 'px';
+      if ( balloon_size >= 275 ) {
+        balloon.innerHTML = '💥';
+        window.removeEventListener("keydown", inflate_deflate);
+      }
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      balloon_size = Math.max(75, Math.round(9 * balloon_size / 10));
+      balloon.style.fontSize = balloon_size + 'px';
+    }
+  };
+  window.addEventListener("keydown", inflate_deflate);
+</script>

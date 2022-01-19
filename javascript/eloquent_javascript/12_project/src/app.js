@@ -1,6 +1,6 @@
-const evalTree = require('./eval.js');
-const globalScope = require('./scope.js');
-const {parse, removeSpaces} = require('./parse.js');
+const evalTree = require('./eval');
+const globalScope = require('./scope');
+const {parse, removeSpaces} = require('./parse');
 
 const shit = (code, debug = false) => {
   let codeTree = parse(code);
