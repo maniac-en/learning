@@ -1,4 +1,4 @@
-const scale = 75;
+import {scale} from './app.js'
 
 export class DOMDisplay {
   constructor(parent, level) {

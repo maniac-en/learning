@@ -1,5 +1,4 @@
 .background {
-  background: rgb(52, 166, 251);
   table-layout: fixed;
   border-spacing: 0;
 }
@@ -8,12 +7,20 @@
   padding: 0;
 }
 
-.lava {
-  background: rgb(255, 100, 100);
+body, .background {
+  background: #233142;
 }
 
 .wall {
-  background: white;
+  background: #455d7a;
+}
+
+.lava {
+  background: #f95959;
+}
+
+.player {
+  background: #e3e3e3;
 }
 
 .actor {
@@ -24,21 +31,17 @@
   background: rgb(241, 229, 89);
 }
 
-body , .player {
-  background: rgb(64, 64, 64);
-}
-
 .lost .player {
-  background: rgb(160, 64, 64);
+  box-shadow: -4px -7px 8px 3px red, 4px -7px 8px 6px red;
 }
 
 .won .player {
-  box-shadow: -4px -7px 8px white, 4px -7px 8px white;
+  box-shadow: -4px -7px 8px black, 4px -7px 8px black;
 }
 
 .game {
-  left: 50%;
-  transform: translate(-50%, 25%);
+  margin-left: 100px;
+  margin-top: 125px;
   overflow: hidden;
   max-width: 1024px;
   max-height: 768px;
