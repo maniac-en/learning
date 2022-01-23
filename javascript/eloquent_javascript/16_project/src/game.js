@@ -1,3 +1,9 @@
+import {GAME_LEVELS} from './levels.js'
+import {DOMDisplay} from './dom_display.js'
+
+// object pixel scaling factor
+export const scale = 40;
+
 class Vec {
   constructor(x, y) {
     this.x = x; this.y = y;
@@ -64,11 +70,11 @@ class Lava {
   get type() { return "lava"; }
 
   static create(pos, ch) {
-    if (ch == "=") {
+    if (ch === "=") {
       return new Lava(pos, new Vec(2, 0));
-    } else if (ch == "|") {
+    } else if (ch === "|") {
       return new Lava(pos, new Vec(0, 2));
-    } else if (ch == "v") {
+    } else if (ch === "v") {
       return new Lava(pos, new Vec(0, 3), pos);
     }
   }
@@ -119,7 +125,7 @@ Coin.prototype.update = function(time) {
 Coin.prototype.collide = function(state) {
   let filtered = state.actors.filter(a => a != this);
   let status = state.status;
-  if (!filtered.some(a => a.type == "coin")) status = "won";
+  if (!filtered.some(a => a.type === "coin")) status = "won";
   return new State(state.level, filtered, status);
 };
 
@@ -135,6 +141,13 @@ class Level {
     this.height = rows.length;
     this.width = rows[0].length;
     this.startActors = []; // moving elements
+    this.total_coins = 0;
+
+    for (let row of rows) {
+      for (let actor of row) {
+        if (actor === 'o') this.total_coins++;
+      }
+    }
 
     this.rows = rows.map( (row, y) => {
       return row.map( (ch, x) => {
@@ -158,7 +171,7 @@ Level.prototype.touches = function(pos, size, type) {
       let isOutside = x < 0 || x >= this.width ||
         y < 0 || y >= this.height;
       let here = isOutside ? "wall" : this.rows[y][x];
-      if (here == type) return true;
+      if (here === type) return true;
     }
   }
   return false;
@@ -176,7 +189,7 @@ class State {
   }
 
   get player() {
-    return this.actors.find(a => a.type == "player");
+    return this.actors.find(a => a.type === "player");
   }
 }
 
@@ -211,7 +224,7 @@ function trackKeys(keys) {
   let down = Object.create(null);
   function track(event) {
     if (keys.includes(event.key)) {
-      down[event.key] = event.type == "keydown";
+      down[event.key] = event.type === "keydown";
       event.preventDefault();
     }
   }
@@ -236,15 +249,16 @@ function runAnimation(frameFunc) {
   requestAnimationFrame(frame);
 }
 
-function runLevel(level, Display) {
+function runLevel(level, Display, level_count) {
   let display = new Display(document.body, level);
+  display.level_counter_dom.innerHTML = level_count;
   let state = State.start(level);
   let ending = 1;
   return new Promise(resolve => {
     runAnimation(time => {
       state = state.update(time, arrowKeys);
       display.syncState(state);
-      if (state.status == "playing") {
+      if (state.status === "playing") {
         return true;
       } else if (ending > 0) {
         ending -= time;
@@ -258,10 +272,12 @@ function runLevel(level, Display) {
   });
 }
 
-export async function runGame(plans, Display) {
+async function runGame(plans, Display) {
   for (let level = 0; level < plans.length;) {
-    let status = await runLevel(new Level(plans[level]), Display);
-    if (status == "won") level++;
+    let status = await runLevel(new Level(plans[level]), Display, level + 1);
+    if (status === "won") level++;
   }
   console.log("You've won!");
 }
+
+runGame(GAME_LEVELS, DOMDisplay);

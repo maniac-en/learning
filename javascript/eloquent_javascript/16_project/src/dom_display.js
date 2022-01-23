@@ -1,7 +1,10 @@
-import {scale} from './app.js'
+import {scale} from './game.js'
 
 export class DOMDisplay {
   constructor(parent, level) {
+    this.total_coins = level.total_coins;
+    this.coin_counter_dom = document.getElementById('coin_counter');
+    this.level_counter_dom = document.getElementById('level_counter');
     this.dom = create_dom_elements("div", {class: "game"}, drawGrid(level));
     this.actorLayer = null;
     parent.appendChild(this.dom);
@@ -42,12 +45,18 @@ function drawActors(actors) {
   }));
 }
 
+function calCoins(actors, total_coins) {
+  let current_coins = total_coins - actors.filter( a => a.type === "coin" ).length;
+  return current_coins + '/' + total_coins;
+}
+
 DOMDisplay.prototype.syncState = function(state) {
   if (this.actorLayer) this.actorLayer.remove();
   this.actorLayer = drawActors(state.actors);
   this.dom.appendChild(this.actorLayer);
   this.dom.className = `game ${state.status}`;
   this.scrollPlayerIntoView(state);
+  this.coin_counter_dom.innerHTML = calCoins(state.actors, this.total_coins);
 };
 
 DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
